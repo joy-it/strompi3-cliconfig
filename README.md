@@ -1,4 +1,14 @@
 # Open-Source Firmware for the Joy-IT StromPi 3
+
+********************************
+CLI-Config Version
+********************************
+
+Because of the limited space in the Flash-Memory of the STM32F031 MCU, newer features in the next firmware-updates have to
+be configured through a python config script - you will find it in the main firmware located at https://github.com/joy-it/strompi3.
+
+In the present Github Repo you'll find an alternative version of the Firmware, which would have lesser features but there will still be the possibility to configure the StromPi3 Config through the Serial Command Line (CLI).
+
 ******************************************************************************************************************
 
 StromPi v3 - by Joy-IT
@@ -109,6 +119,21 @@ Firmware 1.5
  Now after the StromPi3 have powered off the PowerPath, the main PowerPathcan be started manually through shorting of the ResetPin of the StromPi3 - for this there have to be made an additional connection on the SP3 PCB; for this please refer to the manual in the PowerOnButton Folder
 - poweroff Command:
  There was a bugfix included in this command
+ 
+Firmware 1.6
+- Feature to show the current Voltage-Source:
+ You can find a new entry at the "show-status" command, which shows the current active Voltage-Source
+- PowerBackDetection in Serial-Less-Mode:
+ Rather than a generated impulse, the GPIO-Pin for the Serial-Less Feature is pulled to GND as long as the Backup-Voltage Source is active. With the new Python-Scripts (please check the associated Script folders @ https://github.com/joy-it/strompi3-cliconfig/tree/master/SerialLess-Mode/SerialLess-Scripts) it is now possible to detect a PowerBack Event to stop a dedicated shutdown Counter.
+- BugFix for the Serial-Less-Mode:
+ In some configuration the Raspberry Pi wouldn't boot after shutdown in the Serial-Less-Mode. Now this should be fixed.
+- Powerfailure-Counter:
+ You can find a new entry at the "show-status" command, where you can check how many times the StromPi3 had to change to the Backup-Voltagesource
+- PowerOn Button Timer and PowerOnButton Enable:
+ If you want to use the PowerOn-Button Feature (https://github.com/joy-it/strompi3-cliconfig/blob/master/PowerOn-Button/RB-StromPi3-poweroff-Manual.pdf) you now can enable/disable this function - also now you can configure the timer for the shutdown after poweroff, which is needed for the PowerOffButton to initialize.
+- PowerOff BugFix
+- BatteryLevelShutdown:
+ The Threshold Values were changed to more lower values (< 2800mV -> 10% | < 3100mV -> 25% | < 3220mV -> 50%) to extend battery operation with the an active BatteryLevelShutdown.
 
 ******************************************************************************************************************
 	
